@@ -535,7 +535,7 @@ echo "========== Configuring ALSA Devices =========="
 if [ -f /home/$User/.asoundrc ]; then
   rm /home/$User/.asoundrc
 fi
-printf "pcm.!default {\n  type asym\n   playback.pcm {\n     type plug\n     slave.pcm \"hw:0,0\"\n   }\n   capture.pcm {\n     type plug\n     slave.pcm \"hw:1,0\"\n   }\n}" >> /home/$User/.asoundrc
+printf "pcm.!default {\n  type asym\n  playback.pcm {\n    type hw\n    card 0\n    device 0\n  }\n  capture.pcm {\n    type file\n    file "/tmp/matrix_micarray_channel_0"\n    infile "/tmp/matrix_micarray_channel_0"\n    format "raw"\n    slave {\n        pcm sc\n    }\n  }\n}" >> /home/$User/.asoundrc
 
 echo "========== Installing CMake =========="
 sudo apt-get install -y cmake

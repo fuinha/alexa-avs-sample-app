@@ -31,10 +31,14 @@ set( WAKE_WORD_AGENT_TEST_LIBS
         sensory
         wiringPi )
 
+FIND_LIBRARY(HAL_LIB NAMES matrix_creator_hal)
+message(STATUS "HAL found => " "${HAL_LIB}")
+
 find_package( Threads )
 set( CMAKE_THREAD_PREFER_PTHREAD TRUE )
 
 add_executable( wakeWordAgentTest ${WAKE_WORD_AGENT_TEST_SOURCE} )
+target_link_libraries(wakeWordAgent ${HAL_LIB})
 
 set_target_properties( wakeWordAgentTest PROPERTIES COMPILE_FLAGS "-std=c++11" )
 
